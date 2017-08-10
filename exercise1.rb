@@ -1,7 +1,4 @@
-puts "Enter the date you were born"
-day = gets.chomp.to_i
-puts "Enter the month you were born"
-month = gets.chomp.downcase
+require "date"
 
 zodiac_signs = {
   "Aries" => {start_dob:"March 21", end_dob: "April 19" },
@@ -18,3 +15,21 @@ zodiac_signs = {
   "Pisces" => {start_dob:"February 19", end_dob: "March 20" }
 
 }
+puts "Enter the date you were born"
+day = gets.chomp.to_i
+puts "Enter the month you were born"
+month = gets.chomp.downcase
+
+dob = DateTime.parse("#{month} #{day}")
+
+sign = zodiac_signs.find do |_zodiac_signs,attributes|
+
+  proper_start_dob = DateTime.parse(attributes[:start_dob])
+
+  proper_end_dob = DateTime.parse(attributes[:end_dob])
+
+  dob >= proper_start_dob && dob <= proper_end_dob
+
+end
+
+puts sign.first
